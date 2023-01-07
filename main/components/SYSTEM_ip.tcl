@@ -1,0 +1,76 @@
+# Exporting core SYSTEM_ip to TCL
+# Exporting Create HDL core command for module SYSTEM_ip
+create_hdl_core -file {hdl/SYSTEM_ip.v} -module {SYSTEM_ip} -library {work} -package {}
+# Exporting BIF information of  HDL core command for module SYSTEM_ip
+hdl_core_add_bif -hdl_core_name {SYSTEM_ip} -bif_definition {AXI4:AMBA:AMBA4:slave} -bif_name {AXI4} -signal_map {\
+"AWID:AXI4_AWID" \
+"AWADDR:AXI4_AWADDR" \
+"AWLEN:AXI4_AWLEN" \
+"AWSIZE:AXI4_AWSIZE" \
+"AWBURST:AXI4_AWBURST" \
+"AWLOCK:AXI4_AWLOCK" \
+"AWCACHE:AXI4_AWCACHE" \
+"AWPROT:AXI4_AWPROT" \
+"AWVALID:AXI4_AWVALID" \
+"WDATA:AXI4_WDATA" \
+"WSTRB:AXI4_WSTRB" \
+"WLAST:AXI4_WLAST" \
+"WVALID:AXI4_WVALID" \
+"BREADY:AXI4_BREADY" \
+"ARID:AXI4_ARID" \
+"ARADDR:AXI4_ARADDR" \
+"ARLEN:AXI4_ARLEN" \
+"ARSIZE:AXI4_ARSIZE" \
+"ARBURST:AXI4_ARBURST" \
+"ARLOCK:AXI4_ARLOCK" \
+"ARCACHE:AXI4_ARCACHE" \
+"ARPROT:AXI4_ARPROT" \
+"ARVALID:AXI4_ARVALID" \
+"RREADY:AXI4_RREADY" \
+"AWREADY:AXI4_AWREADY" \
+"WREADY:AXI4_WREADY" \
+"BID:AXI4_BID" \
+"BRESP:AXI4_BRESP" \
+"BVALID:AXI4_BVALID" \
+"ARREADY:AXI4_ARREADY" \
+"RID:AXI4_RID" \
+"RDATA:AXI4_RDATA" \
+"RRESP:AXI4_RRESP" \
+"RLAST:AXI4_RLAST" \
+"RVALID:AXI4_RVALID" }
+hdl_core_add_bif -hdl_core_name {SYSTEM_ip} -bif_definition {AXI4:AMBA:AMBA4:master} -bif_name {AXI4_Master} -signal_map {\
+"RDATA:AXI4_Master_Rd_RDATA" \
+"RLAST:AXI4_Master_Rd_RLAST" \
+"RVALID:AXI4_Master_Rd_RVALID" \
+"RID:AXI4_Master_Rd_RID" \
+"RRESP:AXI4_Master_Rd_RRESP" \
+"ARREADY:AXI4_Master_Rd_ARREADY" \
+"ARID:AXI4_Master_Rd_ARID" \
+"ARADDR:AXI4_Master_Rd_ARADDR" \
+"ARLEN:AXI4_Master_Rd_ARLEN" \
+"ARSIZE:AXI4_Master_Rd_ARSIZE" \
+"ARBURST:AXI4_Master_Rd_ARBURST" \
+"ARLOCK:AXI4_Master_Rd_ARLOCK" \
+"ARCACHE:AXI4_Master_Rd_ARCACHE" \
+"ARPROT:AXI4_Master_Rd_ARPROT" \
+"ARVALID:AXI4_Master_Rd_ARVALID" \
+"RREADY:AXI4_Master_Rd_RREADY" \
+"AWREADY:AXI4_Master_Wr_AWREADY" \
+"WREADY:AXI4_Master_Wr_WREADY" \
+"BID:AXI4_Master_Wr_BID" \
+"BRESP:AXI4_Master_Wr_BRESP" \
+"BVALID:AXI4_Master_Wr_BVALID" \
+"AWID:AXI4_Master_Wr_AWID" \
+"AWADDR:AXI4_Master_Wr_AWADDR" \
+"AWLEN:AXI4_Master_Wr_AWLEN" \
+"AWSIZE:AXI4_Master_Wr_AWSIZE" \
+"AWBURST:AXI4_Master_Wr_AWBURST" \
+"AWLOCK:AXI4_Master_Wr_AWLOCK" \
+"AWCACHE:AXI4_Master_Wr_AWCACHE" \
+"AWPROT:AXI4_Master_Wr_AWPROT" \
+"AWVALID:AXI4_Master_Wr_AWVALID" \
+"WDATA:AXI4_Master_Wr_WDATA" \
+"WSTRB:AXI4_Master_Wr_WSTRB" \
+"WLAST:AXI4_Master_Wr_WLAST" \
+"WVALID:AXI4_Master_Wr_WVALID" \
+"BREADY:AXI4_Master_Wr_BREADY" }
