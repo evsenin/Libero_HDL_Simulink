@@ -5,6 +5,7 @@ source hdl_source.tcl
 build_design_hierarchy
 
 #Sourcing the Tcl files in which HDL+ core definitions are created for HDL modules
+source components/CameraIO_ip.tcl 
 source components/SYSTEM_ip.tcl 
 build_design_hierarchy
 
