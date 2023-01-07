@@ -46,3 +46,4 @@ To add new core from simulink to existing prokect do following:
   3. Left ONLY import_files and hdl_core rows
   4. run tcl inside existing Libero project
 
+In the Libero for CameraIO project add BIBUF primitives fot I2C lines
