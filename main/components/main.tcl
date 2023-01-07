@@ -12,7 +12,6 @@ sd_create_scalar_port -sd_name ${sd_name} -port_name {Expander_nRST} -port_direc
 sd_create_scalar_port -sd_name ${sd_name} -port_name {GPIO27_PWM2} -port_direction {IN}
 sd_create_scalar_port -sd_name ${sd_name} -port_name {MonADC_MISO} -port_direction {IN}
 sd_create_scalar_port -sd_name ${sd_name} -port_name {MonADC_nERROR} -port_direction {IN}
-sd_create_scalar_port -sd_name ${sd_name} -port_name {TVS_valid} -port_direction {IN}
 sd_create_scalar_port -sd_name ${sd_name} -port_name {XAVIER_I2S_CLK} -port_direction {IN}
 sd_create_scalar_port -sd_name ${sd_name} -port_name {XAVIER_I2S_FS} -port_direction {IN}
 sd_create_scalar_port -sd_name ${sd_name} -port_name {XAVIER_I2S_SDIN} -port_direction {IN}
@@ -74,8 +73,6 @@ sd_create_bus_port -sd_name ${sd_name} -port_name {CC_M20} -port_direction {IN} 
 sd_create_bus_port -sd_name ${sd_name} -port_name {PLL_STATUS} -port_direction {IN} -port_range {[7:0]}
 sd_create_bus_port -sd_name ${sd_name} -port_name {PWR_STATUS} -port_direction {IN} -port_range {[7:0]}
 sd_create_bus_port -sd_name ${sd_name} -port_name {SYS_STATUS} -port_direction {IN} -port_range {[7:0]}
-sd_create_bus_port -sd_name ${sd_name} -port_name {TVS_chan} -port_direction {IN} -port_range {[1:0]}
-sd_create_bus_port -sd_name ${sd_name} -port_name {TVS_data} -port_direction {IN} -port_range {[15:0]}
 
 sd_create_bus_port -sd_name ${sd_name} -port_name {CC_M43} -port_direction {OUT} -port_range {[1:0]}
 sd_create_bus_port -sd_name ${sd_name} -port_name {PWR_CONTOL} -port_direction {OUT} -port_range {[7:0]}
@@ -166,6 +163,20 @@ sd_instantiate_component -sd_name ${sd_name} -component_name {PF_OSC_C0} -instan
 
 
 
+# Add PF_TVS_C0_0 instance
+sd_instantiate_component -sd_name ${sd_name} -component_name {PF_TVS_C0} -instance_name {PF_TVS_C0_0}
+sd_connect_pins_to_constant -sd_name ${sd_name} -pin_names {PF_TVS_C0_0:TEMP_HIGH_CLEAR} -value {VCC}
+sd_connect_pins_to_constant -sd_name ${sd_name} -pin_names {PF_TVS_C0_0:TEMP_LOW_CLEAR} -value {VCC}
+sd_connect_pins_to_constant -sd_name ${sd_name} -pin_names {PF_TVS_C0_0:ENABLE_1V} -value {VCC}
+sd_connect_pins_to_constant -sd_name ${sd_name} -pin_names {PF_TVS_C0_0:ENABLE_18V} -value {VCC}
+sd_connect_pins_to_constant -sd_name ${sd_name} -pin_names {PF_TVS_C0_0:ENABLE_25V} -value {VCC}
+sd_connect_pins_to_constant -sd_name ${sd_name} -pin_names {PF_TVS_C0_0:ENABLE_TEMP} -value {VCC}
+sd_mark_pins_unused -sd_name ${sd_name} -pin_names {PF_TVS_C0_0:TEMP_HIGH}
+sd_mark_pins_unused -sd_name ${sd_name} -pin_names {PF_TVS_C0_0:TEMP_LOW}
+sd_mark_pins_unused -sd_name ${sd_name} -pin_names {PF_TVS_C0_0:ACTIVE}
+
+
+
 # Add SYSTEM_ip_0 instance
 sd_instantiate_hdl_core -sd_name ${sd_name} -hdl_core_name {SYSTEM_ip} -instance_name {SYSTEM_ip_0}
 
@@ -244,9 +255,9 @@ sd_connect_pins -sd_name ${sd_name} -pin_names {"MonADC_SCK" "SYSTEM_ip_0:MonADC
 sd_connect_pins -sd_name ${sd_name} -pin_names {"MonADC_nCS" "SYSTEM_ip_0:MonADC_nCS" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"MonADC_nERROR" "SYSTEM_ip_0:MonADC_nERROR" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"PF_CLK_DIV_C0_0:CLK_IN" "PF_OSC_C0_0:RCOSC_160MHZ_CLK_DIV" }
+sd_connect_pins -sd_name ${sd_name} -pin_names {"PF_TVS_C0_0:VALID" "SYSTEM_ip_0:TVS_valid" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"PPS_OUT" "SYSTEM_ip_0:PPS_OUT" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"SYSTEM_ip_0:SysReset_N" "SysReset_N" }
-sd_connect_pins -sd_name ${sd_name} -pin_names {"SYSTEM_ip_0:TVS_valid" "TVS_valid" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"SYSTEM_ip_0:XAVIER_I2S_CLK" "XAVIER_I2S_CLK" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"SYSTEM_ip_0:XAVIER_I2S_FS" "XAVIER_I2S_FS" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"SYSTEM_ip_0:XAVIER_I2S_SDIN" "XAVIER_I2S_SDIN" }
@@ -266,12 +277,12 @@ sd_connect_pins -sd_name ${sd_name} -pin_names {"TRIBUFF_0:PAD" "XAVIER_SPI1_MIS
 # Add bus net connections
 sd_connect_pins -sd_name ${sd_name} -pin_names {"CC_M20" "SYSTEM_ip_0:CC_M20" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"CC_M43" "SYSTEM_ip_0:CC_M43" }
+sd_connect_pins -sd_name ${sd_name} -pin_names {"PF_TVS_C0_0:CHANNEL" "SYSTEM_ip_0:TVS_chan" }
+sd_connect_pins -sd_name ${sd_name} -pin_names {"PF_TVS_C0_0:VALUE" "SYSTEM_ip_0:TVS_data" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"PLL_STATUS" "SYSTEM_ip_0:PLL_STATUS" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"PWR_CONTOL" "SYSTEM_ip_0:PWR_CONTOL" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"PWR_STATUS" "SYSTEM_ip_0:PWR_STATUS" }
 sd_connect_pins -sd_name ${sd_name} -pin_names {"SYSTEM_ip_0:SYS_STATUS" "SYS_STATUS" }
-sd_connect_pins -sd_name ${sd_name} -pin_names {"SYSTEM_ip_0:TVS_chan" "TVS_chan" }
-sd_connect_pins -sd_name ${sd_name} -pin_names {"SYSTEM_ip_0:TVS_data" "TVS_data" }
 
 # Add bus interface net connections
 sd_connect_pins -sd_name ${sd_name} -pin_names {"COREAXI4INTERCONNECT_C0_0:AXI4mmaster0" "SYSTEM_ip_0:AXI4_Master" }

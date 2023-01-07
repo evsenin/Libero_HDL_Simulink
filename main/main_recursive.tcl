@@ -14,5 +14,6 @@ source components/COREAXI4INTERCONNECT_C0.tcl
 source components/PF_CLK_DIV_C0.tcl 
 source components/PF_INIT_MONITOR_C0.tcl 
 source components/PF_OSC_C0.tcl 
+source components/PF_TVS_C0.tcl 
 source components/main.tcl 
 build_design_hierarchy
