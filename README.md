@@ -41,8 +41,8 @@ To add new core from simulink to existing prokect do following:
 1. Generate core in Simulink_HDL_Libero as separate Libero project
 2. Save project
 3. Edit generated tcl:
-1. sd_replace_component -sd_name Libero_sd -instance_name {SYSTEM_ip_0} -new_component_name ...
-2. remove all Libero_sd and open project rows
-3. Left ONLY import_files and hdl_core rows
-4. run tcl inside existing Libero project
-5. Details see in Libero_HDL_simulink repo
+  1. sd_replace_component -sd_name Libero_sd -instance_name {SYSTEM_ip_0} -new_component_name ...
+  2. remove all Libero_sd and open project rows
+  3. Left ONLY import_files and hdl_core rows
+  4. run tcl inside existing Libero project
+
